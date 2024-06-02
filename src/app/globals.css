@@ -1,33 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Setup Text Size */
+@layer components {
+  .resume-h1 {
+    @apply md:text-[44px] text-2xl md:leading-[50px];
   }
+  .resume-h2 {
+    @apply text-4xl;
+  }
+  .resume-h3 {
+    @apply text-[32px];
+  }
+  .resume-h4 {
+    @apply text-[28px];
+  }
+  .resume-h5 {
+    @apply text-2xl;
+  }
+  .resume-h6 {
+    @apply text-xl;
+  }
+  .resume-subtitle {
+    @apply text-lg;
+  }
+  .resume-body1 {
+    @apply text-base;
+  }
+  .resume-body2 {
+    @apply text-sm;
+  }
+  .resume-caption {
+    @apply text-xs;
+  }
+}
+
+/* Custom Menu Component */
+.ant-menu-horizontal {
+  @apply border-b-0
+}
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected{
+  @apply text-primary font-bold
+}
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after {
+  @apply border-b-primary
+}
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item:hover::after {
+  @apply border-b-primary
+}
+
+/* Custom Button Style */
+.ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: transparent;
+}
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  @apply bg-primary
+}
+.ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: transparent;
+}
+
+/* Custom Card Style */
+.ant-card .ant-card-body {
+  padding: 0;
+}
+
+/* Custom carousel */
+.swiper .swiper-horizontal > .swiper-pagination-progressbar, .swiper-pagination-progressbar.swiper-pagination-horizontal {
+ bottom: 0;
+ top: unset !important;
+}
+.swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  @apply bg-primary
+}
+.swiper .swiper-pagination-progressbar {
+  background-color: transparent;
+}
+
+/* Custom timeline style */
+.ant-timeline .ant-timeline-item-head-blue {
+  @apply border-primary text-primary
+}
+
+/* Custom Menu style */
+.active-menu {
+  @apply text-primary font-bold transition duration-300
+}
+a:hover {
+  @apply text-primary transition duration-300
+}
+a:active {
+  @apply text-primary transition duration-300
+}
+
+/* Custom modal style */
+.ant-modal .ant-modal-content {
+  padding: 0px;
+}
+
+/* Custom image style */
+.ant-image .ant-image-mask {
+  @apply rounded-t-lg
+}
+
+/* Custom collapse style */
+.ant-collapse-borderless {
+  background-color: transparent;
+}
+.ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-expand-icon {
+  @apply absolute right-0 top-6
+}
+
+.ant-tooltip .ant-tooltip-inner {
+  @apply bg-white text-primary font-archivo
 }
