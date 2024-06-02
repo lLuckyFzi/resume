@@ -136,7 +136,7 @@ export default function Home() {
               transition={{ delay: 0.5 }}
             >
               <Text className="text-3xl text-newBlack max-xl:text-base max-sm:text-center max-[440px]:text-sm">
-                Hello World, I'm <b className="text-primary">Lucky Fauzi</b>
+                Hello World, I&apos;m <b className="text-primary">Lucky Fauzi</b>
               </Text>
             </m.div>
             <div className="flex items-end gap-x-2 max-sm:justify-center">
@@ -162,7 +162,7 @@ export default function Home() {
               transition={{ delay: 1.5 }}
             >
               <Text className="w-[580px] text-xl font-light text-newBlack pt-9 max-xl:w-[400px] max-xl:text-base max-2xl:pt-4 max-sm:text-center max-[440px]:text-xs max-[440px]:w-[350px]">
-                I'm just a person who has a goal to become a Fullstack
+                I&apos;m just a person who has a goal to become a Fullstack
                 Developer, Dev Ops, UI/UX Designer, and maybe an AI Engineer?
               </Text>
             </m.div>
