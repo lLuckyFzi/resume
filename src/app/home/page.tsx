@@ -75,7 +75,7 @@ export default function Home() {
               }}
               className="absolute z-50 right-[0px] top-[28px] w-[35px]"
             >
-              <Image alt="circle" src="/images/box.png" preview={false} />
+              <Image alt="box" src="/images/Box.png" preview={false} />
             </m.div>
             <m.div
               initial={{ opacity: 0, y: 125 }}
@@ -126,7 +126,7 @@ export default function Home() {
               }}
               className="absolute z-50 left-[0px] bottom-[28px] w-[35px]"
             >
-              <Image alt="circle" src="/images/box.png" preview={false} />
+              <Image alt="box" src="/images/Box.png" preview={false} />
             </m.div>
           </div>
           <div className="flex flex-col gap-y-2 pr-32 max-2xl:gap-y-0 max-2xl:pr-10 max-xl:pr-5 max-sm:pr-0">
