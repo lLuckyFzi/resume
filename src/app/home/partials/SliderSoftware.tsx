@@ -43,4 +43,4 @@ function SliderSoftware(props: { data: { name: string; icon: ReactNode }[] }) {
   );
 }
 
-export default SliderSoftware;
+export default React.memo(SliderSoftware);

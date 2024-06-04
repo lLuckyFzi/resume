@@ -1,7 +1,7 @@
 import { AwardsDataType } from "@resume/Types/DataProfile";
 import Text from "@resume/components/Text";
-import { Button, Image, Modal } from "antd";
-import React, { useState } from "react";
+import { Button, Image, Modal, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { RiFlipHorizontalFill, RiFlipHorizontalLine } from "react-icons/ri";
 
 interface ModalAwardProps {
@@ -10,12 +10,27 @@ interface ModalAwardProps {
   selectedData: AwardsDataType;
 }
 
+// fix preload Image
+function preloadImage(src: string, onLoad: () => void) {
+  const img = new window.Image();
+  img.src = src;
+  img.onload = onLoad;
+}
+
 function ModalAward(props: ModalAwardProps) {
   const { selectedData, selectedId, setSelectedId } = props;
 
   const [isFliped, setIsFliped] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const isCanFlipped = selectedData?.images?.length > 1;
+
+  useEffect(() => {
+    if (isCanFlipped) {
+      setIsLoading(true);
+      preloadImage(selectedData.images[1], () => setIsLoading(false));
+    }
+  }, [isCanFlipped, selectedData]);
 
   return (
     <Modal
@@ -23,7 +38,12 @@ function ModalAward(props: ModalAwardProps) {
       open={!!selectedId}
       footer={false}
       closable={false}
-      onCancel={() => setSelectedId(null)}
+      onCancel={() => {
+        setSelectedId(null);
+
+        // fix other content get flipped
+        setIsFliped(false);
+      }}
     >
       <div className="relative w-full">
         {isCanFlipped && (
@@ -38,10 +58,13 @@ function ModalAward(props: ModalAwardProps) {
             )}
           </Button>
         )}
-        <Image
-          className="overflow-hidden rounded-t-lg"
-          src={selectedData?.images?.[isFliped && isCanFlipped ? 1 : 0]}
-        />
+        <Spin spinning={isLoading}>
+          <Image
+            key={isFliped ? "flipped" : "not-flipped"}
+            className="overflow-hidden rounded-t-lg"
+            src={selectedData?.images?.[isFliped && isCanFlipped ? 1 : 0]}
+          />
+        </Spin>
       </div>
       <div className="p-5 flex flex-col gap-y-3 max-sm:gap-y-1">
         <Text className="font-archivo font-bold text-2xl text-primary max-2xl:text-xl max-sm:text-base">

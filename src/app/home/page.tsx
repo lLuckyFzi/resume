@@ -12,14 +12,16 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { MdEmail, MdLocationPin } from "react-icons/md";
 import SectionHeader, { InnerHeader } from "@resume/components/Headers";
 import SliderSkills from "./partials/SliderSkills";
-import { Element, Link } from "react-scroll";
+import { Element, Link as ReactLink } from "react-scroll";
 import { PrimaryCard } from "@resume/components/Cards";
 import { useRef, useState } from "react";
 import ModalAward from "./partials/ModalAward";
 import WorkExperience from "./partials/WorkExperience";
+import useEndScroll from "@resume/hooks/useEndScroll";
+import { FiExternalLink } from "react-icons/fi";
+import Link from "next/link";
 
 import dataProfile from "./data/dataProfile";
-import useEndScroll from "@resume/hooks/useEndScroll";
 
 export default function Home() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -36,14 +38,26 @@ export default function Home() {
 
   const biodataRef = useRef<HTMLDivElement>(null);
   const educationViewRef = useRef<HTMLDivElement>(null);
+  const experienceViewRef = useRef<HTMLElement>(null);
 
   const inView = useInView(biodataRef, { once: false });
   const inEducationView = useInView(educationViewRef, { once: false });
+  const inExperienceView = useInView(experienceViewRef, { once: false });
+
+  const containerAwards = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
   const variantAwards = {
-    hidden: { opacity: 0, scale: 0 },
+    hidden: { opacity: 0 },
     visible: (i: number) => ({
-      scale: 1,
       opacity: 1,
       transition: {
         delay: i * 1,
@@ -136,7 +150,8 @@ export default function Home() {
               transition={{ delay: 0.5 }}
             >
               <Text className="text-3xl text-newBlack max-xl:text-base max-sm:text-center max-[440px]:text-sm">
-                Hello World, I&apos;m <b className="text-primary">Lucky Fauzi</b>
+                Hello World, I&apos;m{" "}
+                <b className="text-primary">Lucky Fauzi</b>
               </Text>
             </m.div>
             <div className="flex items-end gap-x-2 max-sm:justify-center">
@@ -172,7 +187,7 @@ export default function Home() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.8 }}
               >
-                <Link to="biodata" smooth={true} duration={500}>
+                <ReactLink to="biodata" smooth={true} duration={500}>
                   <TextButton
                     onClick={() => handleClick("landing")}
                     className="flex items-center p-0 text-sm text-newBlack"
@@ -180,7 +195,7 @@ export default function Home() {
                   >
                     Explore More
                   </TextButton>
-                </Link>
+                </ReactLink>
               </m.div>
               <m.div
                 initial={{ opacity: 0 }}
@@ -371,7 +386,7 @@ export default function Home() {
             >
               <InnerHeader
                 inView={inEducationView}
-                delay={1}
+                delay={0}
                 className="font-semibold text-2xl text-newBlack max-2xl:text-xl max-sm:text-base max-[440px]:text-sm max-[440px]:text-center"
               >
                 Education
@@ -411,22 +426,21 @@ export default function Home() {
             <div className="flex flex-col gap-y-8 items-start w-[60%] max-lg:w-full max-lg:items-center">
               <InnerHeader
                 inView={inEducationView}
-                delay={1.4}
+                delay={0}
                 className="font-semibold text-2xl text-newBlack max-2xl:text-xl max-sm:text-base max-[440px]:text-sm max-[440px]:text-center"
                 center
               >
                 Awards
               </InnerHeader>
-              <div className="grid grid-cols-2 gap-10 max-md:grid-cols-1">
+              <m.div
+                className="grid grid-cols-2 gap-10 max-md:grid-cols-1"
+                variants={containerAwards}
+                initial="hidden"
+                animate={inEducationView && "visible"}
+              >
                 {dataProfile?.awards.map((d, i) => {
                   return (
-                    <m.div
-                      key={d.id}
-                      custom={i}
-                      initial="hidden"
-                      animate={inEducationView && "visible"}
-                      variants={variantAwards}
-                    >
+                    <m.div key={d.id} custom={i} variants={variantAwards}>
                       <PrimaryCard
                         key={d.id}
                         title={d.title}
@@ -437,7 +451,7 @@ export default function Home() {
                     </m.div>
                   );
                 })}
-              </div>
+              </m.div>
             </div>
           </div>
           <ModalAward
@@ -449,10 +463,14 @@ export default function Home() {
       </Element>
       <Element name="experience">
         <section
+          ref={experienceViewRef}
           className="relative min-h-[100vh] px-[155px] pt-32 max-2xl:px-32 max-xl:px-16 overflow-hidden max-sm:pt-10 max-sm:px-16 bg-white"
           id="experience"
         >
-          <SectionHeader className="text-6xl font-bold max-2xl:text-5xl max-md:text-3xl">
+          <SectionHeader
+            inView={inExperienceView}
+            className="text-6xl font-bold max-2xl:text-5xl max-md:text-3xl"
+          >
             Work Experience
           </SectionHeader>
           {dataProfile.workExperience?.map((d) => {
@@ -460,7 +478,10 @@ export default function Home() {
               <div key={d.id}>
                 <div className="flex justify-between mt-12 max-[975px]:flex-col">
                   <div className="flex flex-col gap-x-20 w-[25%] max-[1440px]:w-[30%] max-[975px]:w-full">
-                    <div className="mt-1 flex items-center gap-x-3">
+                    <Link
+                      href={d.webCompanyPath}
+                      className="mt-1 flex items-center gap-x-3"
+                    >
                       <div className="w-6">
                         <Image
                           preview={false}
@@ -487,7 +508,8 @@ export default function Home() {
                           </Text>
                         </div>
                       </div>
-                    </div>
+                      <FiExternalLink className="w-6 h-6 text-newBlack max-sm:w-4 max-sm:h-4" />
+                    </Link>
                   </div>
                   <div className="w-[75%] max-[1440px]:w-[70%] max-[975px]:w-full">
                     <WorkExperience data={d.experience} />
@@ -500,7 +522,7 @@ export default function Home() {
         </section>
       </Element>
       <FloatButton.BackTop
-        className="fixed right-11 bottom-56 max-sm:right-5"
+        className="-translate-x-2"
         icon={<FaLongArrowAltUp className="w-5 text-primary" />}
       />
     </div>

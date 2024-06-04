@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function useEndScroll() {
   const [isVisible, setIsVisible] = useState(true);
@@ -8,7 +8,7 @@ function useEndScroll() {
     const windowHeight = window.innerHeight;
     const fullHeight = document.documentElement.scrollHeight;
 
-    if (scrollTop + windowHeight >= fullHeight) {
+    if (scrollTop + windowHeight >= fullHeight - 170) {
       setIsVisible(false);
     } else {
       setIsVisible(true);

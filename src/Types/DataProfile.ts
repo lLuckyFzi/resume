@@ -26,6 +26,7 @@ export type WorkExperienceDataType = {
   endYear: number;
   location: string;
   workType: string;
+  webCompanyPath: string;
   experience: ExperienceDataType[];
 };
 

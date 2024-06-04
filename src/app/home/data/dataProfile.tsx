@@ -184,6 +184,7 @@ const dataProfile: ProfileDataType = {
       location: "Bandung",
       workType: "Remote",
       iconPath: "/logo/nusantech.png",
+      webCompanyPath: "https://nusantech.com/id",
       experience: [
         {
           id: 1,
@@ -255,6 +256,15 @@ const dataProfile: ProfileDataType = {
               endYear: "Feb 2023",
               description:
                 "Is a website company for sharing information about cooperation between Indonesia and Japan. JCM is an initiative of the Government of Japan that encourages Japanese private organizations to invest in low-carbon development activities in Indonesia through incentives.",
+            },
+            {
+              id: 6,
+              iconPath: "/logo/wrtc.png",
+              name: "We Run The City",
+              startYear: "March 2024",
+              endYear: "May 2024",
+              description:
+                "We Run The City is a website for virtual running events in the Padang area of Indonesia, which is a child website of Beyond Run. Using Next Js and Typescript to develop the website.",
             },
           ],
         },

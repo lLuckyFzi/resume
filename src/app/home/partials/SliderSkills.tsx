@@ -41,4 +41,4 @@ function SliderSkills(props: { data: { name: string; icon: ReactNode }[] }) {
   );
 }
 
-export default SliderSkills;
+export default React.memo(SliderSkills);

@@ -16,21 +16,30 @@ export default function SectionHeader(
   const { children, className, inView = true } = props;
 
   return (
-    <div className="flex items-center gap-x-3">
+    <m.div
+      className="flex items-center gap-x-3"
+      animate={inView && { opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ delay: 1 }}
+    >
       <m.div
-        initial={{ opacity: 0 }}
-        animate={inView && { opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="w-3 h-16 border bg-primary"
+        className="w-3 h-16 bg-primary"
+        style={{
+          scale: inView ? 1 : 0,
+          opacity: inView ? 1 : 0,
+          transition: "all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+        }}
       />
       <m.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={inView && { opacity: 1, x: 0 }}
-        transition={{ delay: 0.8 }}
+        style={{
+          transform: inView ? "none" : "translateX(-50px)",
+          opacity: inView ? 1 : 0,
+          transition: "all 0.5s",
+        }}
       >
         <Text className={twMerge("text-newBlack", className)}>{children}</Text>
       </m.div>
-    </div>
+    </m.div>
   );
 }
 
