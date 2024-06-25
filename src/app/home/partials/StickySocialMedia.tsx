@@ -69,7 +69,7 @@ function StickySocialMedia(props: {
       >
         <m.div whileHover={{ scale: [null, 1.5] }}>
           <IconButton
-            href="https://www.instagram.com/lckys__/"
+            href="https://www.instagram.com/_lckly/"
             icon={
               <AiFillInstagram className="w-10 h-10 text-secondary max-sm:w-8 max-sm:h-8 max-xl:w-6 max-xl:h-6" />
             }

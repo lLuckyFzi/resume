@@ -41,7 +41,7 @@ const SocialMedia = [
     id: 4,
     icon: <AiFillInstagram className={iconStyle} />,
     name: "Instagram",
-    link: "https://www.instagram.com/lckys__/",
+    link: "https://www.instagram.com/_lckly/",
   },
   {
     id: 5,
